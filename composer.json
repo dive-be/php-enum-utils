@@ -1,0 +1,43 @@
+{
+    "name": "dive-be/php-enum-utils",
+    "description": "Those utilities you always need when dealing with native enumerations.",
+    "type": "library",
+    "homepage": "https://github.com/dive-be/php-enum-utils",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Muhammed Sari",
+            "email": "muhammed@dive.be",
+            "homepage": "https://dive.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "pestphp/pest": "^1.21",
+        "friendsofphp/php-cs-fixer": "^3.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dive\\Enum\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "format": "vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php --allow-risky=yes",
+        "test": "vendor/bin/pest"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}

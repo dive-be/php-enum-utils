@@ -1,2 +1,108 @@
-# php-enum-utils
-Those utilities you always need when dealing with native enumerations.
+# 🛠 Native enum utilities you always need
+
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/dive-be/php-enum-utils.svg?style=flat-square)](https://packagist.org/packages/dive-be/php-enum-utils)
+
+This library provides a collection of native enum utilities (traits) which you almost always need in every PHP project.
+
+## Installation
+
+You can install the package via composer:
+
+```bash
+composer require dive-be/php-enum-utils
+```
+
+## Usage
+
+Assume the following `string` backed enum:
+
+```php
+enum Role: string
+{
+    case Administrator = 'admin';
+    case Auditor = 'audit';
+    case Moderator = 'mod';
+}
+```
+
+### Arrayable (backed enums only)
+
+Allows you to retrieve a key-value pair of names and values:
+
+```php
+Role::toArray(); // ['Administrator' => 'admin', 'Auditor' => 'audit', 'Moderator' => 'mod']
+```
+
+### Assertable
+
+> This relies on the enum names being in PascalCase, which is also recommended by the official PHP docs.
+
+Allows you to make assertions on enum instances using predicate functions:
+
+```php
+$role = Role::Moderator;
+
+$role->isAuditor(); // false
+$role->isModerator(); // true
+```
+
+### Comparable
+
+Allows you to compare enums. Mostly useful when providing backed values:
+
+```php
+$role = Role::Administrator;
+
+$role->equals('admin'); // true
+$role->equals(Role::Administrator); // true
+
+$role->equals('mod'); // false
+$role->equals(Role::Moderator); // false
+```
+
+### NameListable
+
+Allows you to retrieve list of the enum names:
+
+```php
+Role::toNames(); // ['Administrator', 'Auditor', 'Moderator']
+```
+
+### ValueListable (backed enums only)
+
+Allows you to retrieve list of the enum values:
+
+```php
+Role::toValues(); // ['admin', 'audit', 'mod']
+```
+
+### WithUtilities (backed enums only)
+
+Aggregator trait for all of the aforementioned utilities.
+
+## Testing
+
+```bash
+composer test
+```
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Security
+
+If you discover any security related issues, please email oss@dive.be instead of using the issue tracker.
+
+## Credits
+
+- [Muhammed Sari](https://github.com/mabdullahsari)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

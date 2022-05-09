@@ -55,9 +55,12 @@ $role = Role::Administrator;
 
 $role->equals('admin'); // true
 $role->equals(Role::Administrator); // true
-
 $role->equals('mod'); // false
 $role->equals(Role::Moderator); // false
+
+$role->equalsAny(['admin', 'mod', 'audit']); // true
+$role->equalsAny([Role::Administrator, Role::Auditor]); // true
+$role->equalsAny([Role::Moderator, 'audit']); // false
 ```
 
 ### NameListable

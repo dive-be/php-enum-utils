@@ -65,7 +65,7 @@ $role->equalsAny([Role::Moderator, 'audit']); // false
 
 ### NameListable
 
-Allows you to retrieve list of the enum names:
+Allows you to retrieve a list of the enum names:
 
 ```php
 Role::toNames(); // ['Administrator', 'Auditor', 'Moderator']
@@ -73,7 +73,7 @@ Role::toNames(); // ['Administrator', 'Auditor', 'Moderator']
 
 ### ValueListable (backed enums only)
 
-Allows you to retrieve list of the enum values:
+Allows you to retrieve a list of the enum values:
 
 ```php
 Role::toValues(); // ['admin', 'audit', 'mod']

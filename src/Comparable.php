@@ -12,4 +12,15 @@ trait Comparable
 
         return $this === $other;
     }
+
+    public function equalsAny(array $others): bool
+    {
+        foreach ($others as $other) {
+            if ($this->equals($other)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

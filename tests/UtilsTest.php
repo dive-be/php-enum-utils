@@ -8,6 +8,7 @@ use TypeError;
 test('comparisons', function () {
     $role = Role::Administrator;
 
+    // equals
     expect($role->equals('admin'))->toBeTrue();
     expect($role->equals(Role::Administrator))->toBeTrue();
 
@@ -15,6 +16,14 @@ test('comparisons', function () {
     expect($role->equals(Role::Moderator))->toBeFalse();
 
     expect(fn () => $role->equals(1))->toThrow(TypeError::class);
+
+    // equalsAny
+    expect($role->equalsAny(['admin']))->toBeTrue();
+    expect($role->equalsAny([Role::Administrator]))->toBeTrue();
+    expect($role->equalsAny(['admin', 'audit', 'mod']))->toBeTrue();
+    expect($role->equalsAny([Role::Administrator, Role::Auditor]))->toBeTrue();
+    expect($role->equalsAny([Role::Administrator, 'audit']))->toBeTrue();
+    expect($role->equalsAny([Role::Moderator, 'audit']))->toBeFalse();
 });
 
 test('array listing', function () {

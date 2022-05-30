@@ -4,6 +4,13 @@
 
 This library provides a collection of native enum utilities (traits) which you almost always need in every PHP project.
 
+- [Arrayable](#arrayable-backed-enums-only)
+- [Assertable](#assertable)
+- [Comparable](#comparable)
+- [NameListable](#namelistable)
+- [ValueListable](#valuelistable-backed-enums-only)
+- [WithUtilities](#withutilities-backed-enums-only)
+
 ## Installation
 
 You can install the package via composer:

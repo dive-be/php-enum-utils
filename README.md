@@ -42,7 +42,7 @@ Role::toArray(); // ['Administrator' => 'admin', 'Auditor' => 'audit', 'Moderato
 
 ### Assertable
 
-> This relies on the enum names being in PascalCase, which is also recommended by the official PHP docs.
+> This relies on the enum names being in PascalCase, which follows [Larry Garfield's RFC](https://wiki.php.net/rfc/enumerations).
 
 Allows you to make assertions on enum instances using predicate functions:
 

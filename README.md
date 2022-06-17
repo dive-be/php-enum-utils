@@ -26,6 +26,12 @@ Assume the following `string` backed enum:
 ```php
 enum Role: string
 {
+    use \Dive\Enum\Arrayable;
+    use \Dive\Enum\Assertable;
+    use \Dive\Enum\Comparable;
+    use \Dive\Enum\NameListable;
+    use \Dive\Enum\ValueListable;
+
     case Administrator = 'admin';
     case Auditor = 'audit';
     case Moderator = 'mod';

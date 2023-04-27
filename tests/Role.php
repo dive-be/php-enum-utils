@@ -13,7 +13,11 @@ enum Role: string
 {
     use WithUtilities;
 
-    case Administrator = 'admin';
-    case Auditor = 'audit';
-    case Moderator = 'mod';
+    private const ADMINISTRATOR = 'admin';
+    private const AUDITOR = 'audit';
+    private const MODERATOR = 'mod';
+
+    case Administrator = self::ADMINISTRATOR;
+    case Auditor = self::AUDITOR;
+    case Moderator = self::MODERATOR;
 }

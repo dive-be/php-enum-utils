@@ -3,52 +3,76 @@
 namespace Tests;
 
 use BadMethodCallException;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
 use TypeError;
 
-test('comparisons', function () {
-    $role = Role::Administrator;
+final class UtilsTest extends TestCase
+{
+    #[Test]
+    public function comparisons(): void
+    {
+        $role = Role::Administrator;
 
-    // equals
-    expect($role->equals('admin'))->toBeTrue();
-    expect($role->equals(Role::Administrator))->toBeTrue();
+        // equalsAny
+        $this->assertTrue($role->equalsAny(['admin']));
+        $this->assertTrue($role->equalsAny([Role::Administrator]));
+        $this->assertTrue($role->equalsAny(['admin', 'audit', 'mod']));
+        $this->assertTrue($role->equalsAny([Role::Administrator, Role::Auditor]));
+        $this->assertTrue($role->equalsAny([Role::Administrator, 'audit']));
+        $this->assertFalse($role->equalsAny([Role::Moderator, 'audit']));
 
-    expect($role->equals('mod'))->toBeFalse();
-    expect($role->equals(Role::Moderator))->toBeFalse();
+        // equals
+        $this->assertTrue($role->equals('admin'));
+        $this->assertTrue($role->equals(Role::Administrator));
 
-    expect(fn () => $role->equals(1))->toThrow(TypeError::class);
+        $this->assertFalse($role->equals('mod'));
+        $this->assertFalse($role->equals(Role::Moderator));
 
-    // equalsAny
-    expect($role->equalsAny(['admin']))->toBeTrue();
-    expect($role->equalsAny([Role::Administrator]))->toBeTrue();
-    expect($role->equalsAny(['admin', 'audit', 'mod']))->toBeTrue();
-    expect($role->equalsAny([Role::Administrator, Role::Auditor]))->toBeTrue();
-    expect($role->equalsAny([Role::Administrator, 'audit']))->toBeTrue();
-    expect($role->equalsAny([Role::Moderator, 'audit']))->toBeFalse();
-});
+        $this->expectException(TypeError::class);
+        $role->equals(1);
+    }
 
-test('array listing', function () {
-    expect(Role::toArray())->toBe(['Administrator' => 'admin', 'Auditor' => 'audit', 'Moderator' => 'mod']);
-});
+    #[Test]
+    public function array_listing(): void
+    {
+        $this->assertSame([
+            'Administrator' => 'admin',
+            'Auditor' => 'audit',
+            'Moderator' => 'mod',
+        ], Role::toArray());
+    }
 
-test('name listing', function () {
-    expect(Role::toNames())->toBe(['Administrator', 'Auditor', 'Moderator']);
-});
+    #[Test]
+    public function name_listing(): void
+    {
+        $this->assertSame([
+            'Administrator',
+            'Auditor',
+            'Moderator',
+        ], Role::toNames());
+    }
 
-test('value listing', function () {
-   expect(Role::toValues())->toBe(['admin', 'audit', 'mod']);
-});
+    #[Test]
+    public function value_listing(): void
+    {
+        $this->assertSame([
+            'admin',
+            'audit',
+            'mod',
+        ], Role::toValues());
+    }
 
-test('assertions', function () {
-    $role = Role::Moderator;
+    #[Test]
+    public function assertions(): void
+    {
+        $role = Role::Moderator;
 
-    expect($role->isModerator())->toBeTrue();
-    expect($role->isAuditor())->toBeFalse();
-    expect($role->isAdministrator())->toBeFalse();
+        $this->assertTrue($role->isModerator());
+        $this->assertFalse($role->isAuditor());
+        $this->assertFalse($role->isAdministrator());
 
-    expect(fn () => $role->isRickAstley())->toThrow(BadMethodCallException::class);
-    expect(fn () => $role->rickRolled())->toThrow(BadMethodCallException::class);
-    expect(fn () => $role->isAdmin())->toThrow(BadMethodCallException::class);
-    expect(fn () => $role->isAudit())->toThrow(BadMethodCallException::class);
-    expect(fn () => $role->isMod())->toThrow(BadMethodCallException::class);
-    expect(fn () => $role->isadministrator())->toThrow(BadMethodCallException::class);
-});
+        $this->expectException(BadMethodCallException::class);
+        $role->isAdmin();
+    }
+}

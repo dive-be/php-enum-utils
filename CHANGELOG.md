@@ -2,6 +2,16 @@
 
 All notable changes to `php-enum-utils` will be documented in this file.
 
+## 1.3.0 - 2024-03-12
+
+### Added
+
+- PHP 8.3 support
+
+### Removed
+
+- PHP 8.2 support
+
 ## 1.2.0 - 2023-04-27
 
 ### Added
